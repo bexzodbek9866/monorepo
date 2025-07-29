@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/home-e2e"
+    },
+    {
+      "path": "./packages/home"
+    },
+    {
+      "path": "./libs/admin"
+    },
+    {
+      "path": "./libs/client"
+    }
+  ]
+}
