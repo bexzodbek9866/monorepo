@@ -9,7 +9,11 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@apps/admin": ["../../libs/admin/src/index.ts"]
+    }
   },
   "exclude": [
     "out-tsc",
@@ -32,5 +36,10 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"]
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
+  "references": [
+    {
+      "path": "../../libs/admin/tsconfig.lib.json"
+    }
+  ]
 }

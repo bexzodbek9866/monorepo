@@ -4,10 +4,10 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/home-e2e"
+      "path": "./apps/home-e2e"
     },
     {
-      "path": "./packages/home"
+      "path": "./apps/home"
     },
     {
       "path": "./libs/admin"
