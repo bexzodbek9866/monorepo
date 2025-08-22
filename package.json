@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nx dev home"
+    "dev": "nx dev home",
+    "build": "nx build home",
+    "test": "nx test home",
+    "lint": "nx lint home",
+    "ci": "npm ci --legacy-peer-deps --no-audit --no-fund",
+    "postinstall": "nx reset"
   },
   "private": true,
   "devDependencies": {
@@ -54,6 +59,7 @@
   ],
   "dependencies": {
     "@quasar/extras": "^1.17.0",
+    "pinia": "^3.0.3",
     "quasar": "^2.18.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"

@@ -24,6 +24,14 @@ import { RouterView } from 'vue-router';
             label="Demo" 
           />
           <q-route-tab 
+            to="/pinia" 
+            label="Pinia Demo" 
+          />
+          <q-route-tab 
+            to="/test" 
+            label="Test" 
+          />
+          <q-route-tab 
             to="/admin" 
             label="Admin" 
           />
