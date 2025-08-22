@@ -1,0 +1,3 @@
+[submodule "libs/admin"]
+	path = libs/admin
+	url = https://github.com/bexzodbek9866/admin-lib.git
