@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import {AdminLayout, AdminHome, AdminSettings} from '@apps/admin';
+import { AdminLayout, getAdminRoutes } from '@apps/admin';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -35,10 +35,7 @@ const router = createRouter({
     {
       path: '/admin',
       component: AdminLayout,
-      children: [
-        { path: '', component: AdminHome },
-        { path: 'settings', component: AdminSettings },
-      ],
+      children: getAdminRoutes(),
     },
   ],
 });
