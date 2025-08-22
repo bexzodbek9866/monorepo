@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nx dev home"
+    "dev": "nx dev home",
+    "build": "nx build home",
+    "test": "nx test home",
+    "lint": "nx lint home",
+    "ci": "npm ci --legacy-peer-deps --no-audit --no-fund",
+    "postinstall": "nx reset"
   },
   "private": true,
   "devDependencies": {
