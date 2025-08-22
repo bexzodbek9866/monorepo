@@ -1,90 +1,156 @@
-# Apps
+# Vue 3 + Quasar + Nx Monorepo
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Bu loyiha Vue 3, Quasar Framework va Nx monorepo arxitekturasi asosida qurilgan zamonaviy web ilovadir.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## 🚀 Loyihada ishlatilgan texnologiyalar
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+### Frontend Framework
+- **Vue 3** - Zamonaviy va tez Vue framework (v3.5.13)
+- **Quasar Framework** - Material Design asosidagi UI komponentlar kutubxonasi (v2.18.2)
+- **Vue Router** - SPA routing uchun (v4.5.0)
+- **Pinia** - Vue 3 uchun state management (v3.0.3)
 
-## Finish your CI setup
+### Build Tools & Dev Environment
+- **Vite** - Tez va zamonaviy bundler (v6.0.0)
+- **TypeScript** - Tipizatsiya va kod sifati uchun (v5.8.2)
+- **Nx** - Monorepo management va build optimization (v21.3.8)
+- **Sass/SCSS** - CSS preprocessor (v1.90.0)
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/DuemOWCMvN)
+### Testing
+- **Vitest** - Unit testing framework (v3.0.0)
+- **Vue Test Utils** - Vue komponentlarini test qilish uchun (v2.4.6)
+- **Playwright** - E2E testing (v1.36.0)
+- **JSDOM** - Browser environment simulation
 
+### Code Quality
+- **ESLint** - Code linting (v9.8.0)
+- **Prettier** - Code formatting (v2.6.2)
+- **TypeScript ESLint** - TypeScript uchun linting rules
 
-## Generate a library
-
-```sh
-npx nx g @nx/js:lib apps/pkg1 --publishable --importPath=@my-org/pkg1
-```
-
-## Run tasks
-
-To build the library use:
-
-```sh
-npx nx build pkg1
-```
-
-To run any task with Nx use:
-
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
+## 📁 Loyiha strukturasi
 
 ```
-npx nx release
+monorepo/
+├── apps/
+│   ├── home/                 # Asosiy Vue 3 aplikatsiya
+│   │   ├── src/
+│   │   │   ├── app/         # App komponenti va NxWelcome
+│   │   │   ├── router/      # Vue Router konfiguratsiyasi
+│   │   │   ├── stores/      # Pinia store'lar (counter, user)
+│   │   │   ├── styles/      # Quasar variables va global styles
+│   │   │   └── views/       # Sahifa komponetlari
+│   │   └── vite.config.ts   # Vite konfiguratsiyasi
+│   └── home-e2e/           # E2E testlar (Playwright)
+├── libs/
+│   ├── admin/              # Admin library komponetlari
+│   │   ├── src/
+│   │   │   ├── layouts/    # AdminLayout komponenti
+│   │   │   ├── pages/      # Admin sahifalari
+│   │   │   └── stores/     # Admin store'lar
+│   └── client/             # Client library komponetlari
+├── packages/
+│   └── home/               # Home package konfiguratsiyasi
+├── nx.json                 # Nx workspace konfiguratsiyasi
+├── package.json            # Root dependencies
+└── tsconfig.base.json      # TypeScript base konfiguratsiya
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+## 🛠 0'dan loyihani qurish bosqichlari
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+### 1. Nx Workspace yaratish
+```bash
+npx create-nx-workspace@latest monorepo --preset=empty --packageManager=npm
+cd monorepo
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
+### 2. Vue 3 app qo'shish
+```bash
+npx nx g @nx/vue:app home --routing --style=scss --unitTestRunner=vitest --e2eTestRunner=playwright
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+### 3. Quasar Framework o'rnatish
+```bash
+npm install quasar @quasar/extras @quasar/vite-plugin
+```
 
+### 4. Pinia state management qo'shish
+```bash
+npm install pinia
+```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 5. Admin va Client library'larni yaratish
+```bash
+npx nx g @nx/vue:lib admin --publishable --importPath=@apps/admin
+npx nx g @nx/vue:lib client --publishable --importPath=@apps/client
+```
 
-## Install Nx Console
+### 6. Quasar konfiguratsiyasi
+Vite config'da Quasar plugin'ni sozlash:
+```typescript
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+export default defineConfig({
+  plugins: [
+    vue({ template: { transformAssetUrls } }),
+    quasar()
+  ]
+});
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 7. Store'larni yaratish
+- `stores/counter.ts` - Counter state
+- `stores/user.ts` - User management
+- `stores/adminStore.ts` - Admin functionality
 
-## Useful links
+### 8. Vue Router sozlash
+Router konfiguratsiyasi `router/index.ts` faylida:
+- Home view
+- About view  
+- Pinia Demo
+- Quasar Demo
+- Reactivity Test
 
-Learn more:
+### 9. Komponentlar yaratish
+- `App.vue` - Asosiy app komponenti
+- `NxWelcome.vue` - Nx welcome sahifasi
+- Admin layout va sahifalar
+- Demo sahifalar
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📋 Asosiy buyruqlar
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Development
+```bash
+npm run dev          # Home app'ni development rejimida ishga tushirish
+npm run build        # Production build yaratish
+npm run test         # Unit testlarni ishga tushirish
+npm run lint         # Code linting
+```
+
+### Nx buyruqlari
+```bash
+npx nx graph         # Loyiha dependencies grafigini ko'rish
+npx nx build home    # Home app'ni build qilish
+npx nx test admin    # Admin library testlarini ishga tushirish
+npx nx e2e home-e2e  # E2E testlarni ishga tushirish
+```
+
+## 🎯 Loyihaning asosiy xususiyatlari
+
+1. **Monorepo arxitektura** - Nx yordamida bir nechta bog'liq loyihalarni boshqarish
+2. **Modern Vue 3** - Composition API va script setup sintaksisi
+3. **Quasar UI** - Material Design komponentlari
+4. **State Management** - Pinia bilan reactive state
+5. **Type Safety** - TypeScript bilan to'liq tipizatsiya
+6. **Testing Suite** - Unit va E2E testlar
+7. **Code Quality** - ESLint va Prettier integratsiyasi
+8. **Hot Reload** - Vite bilan tez development
+
+## 🔧 Konfiguratsiya fayllari
+
+- `nx.json` - Nx workspace konfiguratsiyasi
+- `vite.config.ts` - Vite bundler sozlamalari
+- `tsconfig.json` - TypeScript konfiguratsiyasi
+- `eslint.config.mjs` - ESLint qoidalari
+- `vitest.workspace.ts` - Test konfiguratsiyasi
+
+Bu loyiha zamonaviy web development best practice'lari asosida tuzilgan va kengaytirishga tayyor arxitekturaga ega.
