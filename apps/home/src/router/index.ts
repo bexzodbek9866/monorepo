@@ -23,6 +23,16 @@ const router = createRouter({
       component: () => import('../views/QuasarDemo.vue'),
     },
     {
+      path: '/pinia',
+      name: 'pinia',
+      component: () => import('../views/PiniaDemo.vue'),
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/ReactivityTest.vue'),
+    },
+    {
       path: '/admin',
       component: AdminLayout,
       children: [
