@@ -10,27 +10,42 @@
         <h2>Biz bilan bog'lanish</h2>
         <div class="contact-grid">
           <div class="contact-card">
-            <div class="contact-icon">📞</div>
+            <div class="contact-icon">
+              📞
+            </div>
             <h3>Telefon</h3>
             <p>+998 90 123 45 67</p>
             <p>Dushanba-Juma: 9:00-18:00</p>
-            <button class="contact-btn">Qo'ng'iroq qilish</button>
+            <button class="contact-btn">
+              Qo'ng'iroq qilish
+            </button>
           </div>
 
           <div class="contact-card">
-            <div class="contact-icon">💬</div>
+            <div class="contact-icon">
+              💬
+            </div>
             <h3>Chat</h3>
             <p>Tez yordam olish uchun</p>
             <p>24/7 mavjud</p>
-            <button @click="startChat" class="contact-btn">Chat boshlash</button>
+            <button
+              class="contact-btn"
+              @click="startChat"
+            >
+              Chat boshlash
+            </button>
           </div>
 
           <div class="contact-card">
-            <div class="contact-icon">📧</div>
+            <div class="contact-icon">
+              📧
+            </div>
             <h3>Email</h3>
             <p>support@company.com</p>
             <p>24 soat ichida javob</p>
-            <button class="contact-btn">Email yuborish</button>
+            <button class="contact-btn">
+              Email yuborish
+            </button>
           </div>
         </div>
       </div>
@@ -40,51 +55,85 @@
         <form @submit.prevent="submitSupport">
           <div class="form-group">
             <label for="subject">Mavzu</label>
-            <select v-model="supportForm.subject" id="subject" required>
-              <option value="">Mavzuni tanlang</option>
-              <option value="order">Buyurtma bilan bog'liq</option>
-              <option value="payment">To'lov muammosi</option>
-              <option value="account">Hisob sozlamalari</option>
-              <option value="technical">Texnik muammo</option>
-              <option value="other">Boshqa</option>
+            <select
+              id="subject"
+              v-model="supportForm.subject"
+              required
+            >
+              <option value="">
+                Mavzuni tanlang
+              </option>
+              <option value="order">
+                Buyurtma bilan bog'liq
+              </option>
+              <option value="payment">
+                To'lov muammosi
+              </option>
+              <option value="account">
+                Hisob sozlamalari
+              </option>
+              <option value="technical">
+                Texnik muammo
+              </option>
+              <option value="other">
+                Boshqa
+              </option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="priority">Muhimlik darajasi</label>
-            <select v-model="supportForm.priority" id="priority" required>
-              <option value="">Muhimlik darajasini tanlang</option>
-              <option value="low">Past</option>
-              <option value="medium">O'rta</option>
-              <option value="high">Yuqori</option>
-              <option value="urgent">Shoshilinch</option>
+            <select
+              id="priority"
+              v-model="supportForm.priority"
+              required
+            >
+              <option value="">
+                Muhimlik darajasini tanlang
+              </option>
+              <option value="low">
+                Past
+              </option>
+              <option value="medium">
+                O'rta
+              </option>
+              <option value="high">
+                Yuqori
+              </option>
+              <option value="urgent">
+                Shoshilinch
+              </option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="message">Xabar</label>
             <textarea
-              v-model="supportForm.message"
               id="message"
+              v-model="supportForm.message"
               rows="6"
               placeholder="Muammoingizni batafsil tasvirlab bering..."
               required
-            ></textarea>
+            />
           </div>
 
           <div class="form-group">
             <label for="attachment">Fayl biriktirish (ixtiyoriy)</label>
             <input
-              type="file"
               id="attachment"
-              @change="handleFileUpload"
+              type="file"
               multiple
               accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+              @change="handleFileUpload"
             >
             <small>JPG, PNG, PDF, DOC fayllarini yuklash mumkin</small>
           </div>
 
-          <button type="submit" class="submit-btn" :disabled="submitting">
+          <button
+            type="submit"
+            class="submit-btn"
+            :disabled="submitting"
+          >
             <span v-if="submitting">Yuborilmoqda...</span>
             <span v-else>Xabar yuborish</span>
           </button>
@@ -102,9 +151,15 @@
           >
             <div class="faq-question">
               <h3>{{ faq.question }}</h3>
-              <span class="faq-toggle" :class="{ active: faq.isOpen }">+</span>
+              <span
+                class="faq-toggle"
+                :class="{ active: faq.isOpen }"
+              >+</span>
             </div>
-            <div v-if="faq.isOpen" class="faq-answer">
+            <div
+              v-if="faq.isOpen"
+              class="faq-answer"
+            >
               <p>{{ faq.answer }}</p>
             </div>
           </div>
@@ -113,18 +168,29 @@
 
       <div class="my-tickets">
         <h2>Mening so'rovlarim</h2>
-        <div v-if="clientStore.supportTickets.length === 0" class="no-tickets">
+        <div
+          v-if="clientStore.supportTickets.length === 0"
+          class="no-tickets"
+        >
           <p>Hali hech qanday so'rov yuborilmagan</p>
         </div>
-        <div v-else class="tickets-list">
+        <div
+          v-else
+          class="tickets-list"
+        >
           <div
             v-for="ticket in clientStore.supportTickets"
             :key="ticket.id"
             class="ticket-card"
           >
             <div class="ticket-header">
-              <div class="ticket-id">#{{ ticket.id }}</div>
-              <div class="ticket-status" :class="ticket.status">
+              <div class="ticket-id">
+                #{{ ticket.id }}
+              </div>
+              <div
+                class="ticket-status"
+                :class="ticket.status"
+              >
                 {{ getTicketStatusText(ticket.status) }}
               </div>
             </div>
@@ -134,7 +200,10 @@
               <small>{{ formatDate(ticket.createdAt) }}</small>
             </div>
             <div class="ticket-actions">
-              <button @click="viewTicket(ticket.id)" class="view-btn">
+              <button
+                class="view-btn"
+                @click="viewTicket(ticket.id)"
+              >
                 Ko'rish
               </button>
             </div>

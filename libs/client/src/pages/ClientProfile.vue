@@ -13,10 +13,15 @@
             :src="clientStore.currentClient.avatar"
             :alt="clientStore.currentClient.name"
           >
-          <div v-else class="default-avatar">
+          <div
+            v-else
+            class="default-avatar"
+          >
             {{ getInitials(clientStore.currentClient?.name || '') }}
           </div>
-          <button class="upload-btn">Rasm yuklash</button>
+          <button class="upload-btn">
+            Rasm yuklash
+          </button>
         </div>
 
         <div class="profile-info">
@@ -53,7 +58,7 @@
               v-model="profileForm.address"
               :disabled="!isEditing"
               rows="3"
-            ></textarea>
+            />
           </div>
 
           <div class="info-group">
@@ -68,16 +73,22 @@
           <div class="profile-actions">
             <button
               v-if="!isEditing"
-              @click="startEditing"
               class="edit-btn"
+              @click="startEditing"
             >
               Tahrirlash
             </button>
             <template v-else>
-              <button @click="saveProfile" class="save-btn">
+              <button
+                class="save-btn"
+                @click="saveProfile"
+              >
                 Saqlash
               </button>
-              <button @click="cancelEditing" class="cancel-btn">
+              <button
+                class="cancel-btn"
+                @click="cancelEditing"
+              >
                 Bekor qilish
               </button>
             </template>
@@ -89,16 +100,28 @@
         <h2>Statistika</h2>
         <div class="stats-grid">
           <div class="stat-item">
-            <div class="stat-number">{{ clientStore.stats.totalOrders }}</div>
-            <div class="stat-label">Jami buyurtmalar</div>
+            <div class="stat-number">
+              {{ clientStore.stats.totalOrders }}
+            </div>
+            <div class="stat-label">
+              Jami buyurtmalar
+            </div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">${{ clientStore.stats.totalSpent }}</div>
-            <div class="stat-label">Jami xaridlar</div>
+            <div class="stat-number">
+              ${{ clientStore.stats.totalSpent }}
+            </div>
+            <div class="stat-label">
+              Jami xaridlar
+            </div>
           </div>
           <div class="stat-item">
-            <div class="stat-number">{{ clientStore.stats.bonusPoints }}</div>
-            <div class="stat-label">Bonus ballari</div>
+            <div class="stat-number">
+              {{ clientStore.stats.bonusPoints }}
+            </div>
+            <div class="stat-label">
+              Bonus ballari
+            </div>
           </div>
         </div>
       </div>
@@ -128,7 +151,10 @@
             >
           </div>
         </div>
-        <button @click="saveSettings" class="save-settings-btn">
+        <button
+          class="save-settings-btn"
+          @click="saveSettings"
+        >
           Sozlamalarni saqlash
         </button>
       </div>

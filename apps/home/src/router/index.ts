@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import { AdminLayout, getAdminRoutes } from '@apps/admin';
-import { ClientLayout, getClientRoutes, useClientStore } from '@apps/client';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -40,8 +39,29 @@ const router = createRouter({
     },
     {
       path: '/client',
-      component: ClientLayout,
-      children: getClientRoutes(),
+      component: () => import('@apps/client').then(m => m.ClientLayout),
+      children: [
+        {
+          path: '',
+          name: 'client-home',
+          component: () => import('@apps/client').then(m => m.ClientHome)
+        },
+        {
+          path: 'profile',
+          name: 'client-profile',
+          component: () => import('@apps/client').then(m => m.ClientProfile)
+        },
+        {
+          path: 'orders',
+          name: 'client-orders',
+          component: () => import('@apps/client').then(m => m.ClientOrders)
+        },
+        {
+          path: 'support',
+          name: 'client-support',
+          component: () => import('@apps/client').then(m => m.ClientSupport)
+        }
+      ],
       beforeEnter: async () => {
         // Initialize demo client when entering client routes
         const clientModule = await import('@apps/client');

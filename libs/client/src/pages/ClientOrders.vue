@@ -2,7 +2,10 @@
   <div class="client-orders">
     <div class="orders-header">
       <h1>Mening Buyurtmalarim</h1>
-      <button @click="createNewOrder" class="new-order-btn">
+      <button
+        class="new-order-btn"
+        @click="createNewOrder"
+      >
         + Yangi buyurtma
       </button>
     </div>
@@ -10,19 +13,38 @@
     <div class="orders-filters">
       <div class="filter-group">
         <label>Status bo'yicha filtr:</label>
-        <select v-model="selectedStatus" @change="filterOrders">
-          <option value="">Barcha statuslar</option>
-          <option value="pending">Kutilmoqda</option>
-          <option value="processing">Jarayonda</option>
-          <option value="shipped">Yuborildi</option>
-          <option value="delivered">Yetkazildi</option>
-          <option value="cancelled">Bekor qilindi</option>
+        <select
+          v-model="selectedStatus"
+          @change="filterOrders"
+        >
+          <option value="">
+            Barcha statuslar
+          </option>
+          <option value="pending">
+            Kutilmoqda
+          </option>
+          <option value="processing">
+            Jarayonda
+          </option>
+          <option value="shipped">
+            Yuborildi
+          </option>
+          <option value="delivered">
+            Yetkazildi
+          </option>
+          <option value="cancelled">
+            Bekor qilindi
+          </option>
         </select>
       </div>
       
       <div class="filter-group">
         <label>Sana bo'yicha:</label>
-        <input v-model="dateFilter" type="date" @change="filterOrders">
+        <input
+          v-model="dateFilter"
+          type="date"
+          @change="filterOrders"
+        >
       </div>
     </div>
 
@@ -39,7 +61,10 @@
           <div class="order-date">
             {{ formatDate(order.date) }}
           </div>
-          <div class="order-status" :class="order.status">
+          <div
+            class="order-status"
+            :class="order.status"
+          >
             {{ getStatusText(order.status) }}
           </div>
         </div>
@@ -71,18 +96,21 @@
           <div class="order-actions">
             <button
               v-if="order.status === 'pending'"
-              @click="cancelOrder(order.id)"
               class="cancel-btn"
+              @click="cancelOrder(order.id)"
             >
               Bekor qilish
             </button>
-            <button @click="viewOrderDetails(order.id)" class="details-btn">
+            <button
+              class="details-btn"
+              @click="viewOrderDetails(order.id)"
+            >
               Batafsil
             </button>
             <button
               v-if="order.status === 'delivered'"
-              @click="reorder(order.id)"
               class="reorder-btn"
+              @click="reorder(order.id)"
             >
               Qayta buyurtma berish
             </button>
@@ -91,11 +119,19 @@
       </div>
     </div>
 
-    <div v-if="filteredOrders.length === 0" class="no-orders">
-      <div class="no-orders-icon">📦</div>
+    <div
+      v-if="filteredOrders.length === 0"
+      class="no-orders"
+    >
+      <div class="no-orders-icon">
+        📦
+      </div>
       <h3>Buyurtmalar topilmadi</h3>
       <p>Hali hech qanday buyurtma yo'q yoki filterga mos keluvchi buyurtma topilmadi.</p>
-      <button @click="createNewOrder" class="new-order-btn">
+      <button
+        class="new-order-btn"
+        @click="createNewOrder"
+      >
         Birinchi buyurtmani bering
       </button>
     </div>

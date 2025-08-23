@@ -8,25 +8,33 @@
     <div class="dashboard-cards">
       <div class="card">
         <h3>Mening Buyurtmalarim</h3>
-        <div class="card-number">{{ clientStore.stats.totalOrders }}</div>
+        <div class="card-number">
+          {{ clientStore.stats.totalOrders }}
+        </div>
         <p>Jami buyurtmalar soni</p>
       </div>
       
       <div class="card">
         <h3>Faol Buyurtmalar</h3>
-        <div class="card-number">{{ clientStore.stats.activeOrders }}</div>
+        <div class="card-number">
+          {{ clientStore.stats.activeOrders }}
+        </div>
         <p>Hozirda faol buyurtmalar</p>
       </div>
       
       <div class="card">
         <h3>Jami Xaridlar</h3>
-        <div class="card-number">${{ clientStore.stats.totalSpent }}</div>
+        <div class="card-number">
+          ${{ clientStore.stats.totalSpent }}
+        </div>
         <p>Jami sarflangan mablag'</p>
       </div>
       
       <div class="card">
         <h3>Bonuslar</h3>
-        <div class="card-number">{{ clientStore.stats.bonusPoints }}</div>
+        <div class="card-number">
+          {{ clientStore.stats.bonusPoints }}
+        </div>
         <p>To'plangan bonus ballari</p>
       </div>
     </div>
@@ -39,7 +47,9 @@
           :key="activity.id"
           class="activity-item"
         >
-          <div class="activity-icon">📦</div>
+          <div class="activity-icon">
+            📦
+          </div>
           <div class="activity-content">
             <h4>{{ activity.title }}</h4>
             <p>{{ activity.description }}</p>
@@ -52,20 +62,35 @@
     <div class="quick-actions">
       <h2>Tezkor Amallar</h2>
       <div class="actions-grid">
-        <router-link to="/client/orders" class="action-card">
-          <div class="action-icon">🛒</div>
+        <router-link
+          to="/client/orders"
+          class="action-card"
+        >
+          <div class="action-icon">
+            🛒
+          </div>
           <h3>Yangi Buyurtma</h3>
           <p>Yangi buyurtma berish</p>
         </router-link>
         
-        <router-link to="/client/profile" class="action-card">
-          <div class="action-icon">👤</div>
+        <router-link
+          to="/client/profile"
+          class="action-card"
+        >
+          <div class="action-icon">
+            👤
+          </div>
           <h3>Profil</h3>
           <p>Profil ma'lumotlarini ko'rish</p>
         </router-link>
         
-        <router-link to="/client/support" class="action-card">
-          <div class="action-icon">💬</div>
+        <router-link
+          to="/client/support"
+          class="action-card"
+        >
+          <div class="action-icon">
+            💬
+          </div>
           <h3>Yordam</h3>
           <p>Qo'llab-quvvatlash xizmati</p>
         </router-link>

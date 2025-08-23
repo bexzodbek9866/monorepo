@@ -7,14 +7,39 @@
           <h2>Client Portal</h2>
         </div>
         <nav class="client-nav">
-          <router-link to="/client" class="nav-item">Bosh sahifa</router-link>
-          <router-link to="/client/profile" class="nav-item">Profil</router-link>
-          <router-link to="/client/orders" class="nav-item">Buyurtmalar</router-link>
-          <router-link to="/client/support" class="nav-item">Qo'llab-quvvatlash</router-link>
+          <router-link
+            to="/client"
+            class="nav-item"
+          >
+            Bosh sahifa
+          </router-link>
+          <router-link
+            to="/client/profile"
+            class="nav-item"
+          >
+            Profil
+          </router-link>
+          <router-link
+            to="/client/orders"
+            class="nav-item"
+          >
+            Buyurtmalar
+          </router-link>
+          <router-link
+            to="/client/support"
+            class="nav-item"
+          >
+            Qo'llab-quvvatlash
+          </router-link>
         </nav>
         <div class="user-menu">
           <span v-if="clientStore.currentClient">{{ clientStore.currentClient.name }}</span>
-          <button @click="logout" class="logout-btn">Chiqish</button>
+          <button
+            class="logout-btn"
+            @click="logout"
+          >
+            Chiqish
+          </button>
         </div>
       </div>
     </header>
@@ -23,27 +48,40 @@
     <main class="client-main">
       <div class="container">
         <!-- Notifications -->
-        <div v-if="clientStore.hasNotifications" class="notifications">
+        <div
+          v-if="clientStore.hasNotifications"
+          class="notifications"
+        >
           <div
             v-for="notification in clientStore.notifications"
             :key="notification"
             class="notification"
           >
             {{ notification }}
-            <button @click="clientStore.removeNotification(notification)">×</button>
+            <button @click="clientStore.removeNotification(notification)">
+              ×
+            </button>
           </div>
         </div>
 
         <!-- Loading -->
-        <div v-if="clientStore.loading" class="loading">
-          <div class="loading-spinner"></div>
+        <div
+          v-if="clientStore.loading"
+          class="loading"
+        >
+          <div class="loading-spinner" />
           <p>Yuklanmoqda...</p>
         </div>
 
         <!-- Error -->
-        <div v-if="clientStore.error" class="error">
+        <div
+          v-if="clientStore.error"
+          class="error"
+        >
           <p>{{ clientStore.error }}</p>
-          <button @click="clientStore.error = null">Yopish</button>
+          <button @click="clientStore.error = null">
+            Yopish
+          </button>
         </div>
 
         <!-- Router View -->
