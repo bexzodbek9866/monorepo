@@ -50,6 +50,16 @@ function showAlert() {
         size="lg" 
         @click="showAlert"
       />
+
+      <!-- Navigation Links -->
+      <div class="q-mt-lg q-gutter-md">
+        <router-link to="/admin" class="q-btn q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable text-primary">
+          Admin Portal
+        </router-link>
+        <router-link to="/client" class="q-btn q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable text-secondary">
+          Client Portal
+        </router-link>
+      </div>
       
       <div class="q-mt-xl">
         <NxWelcome title="@apps/home" />

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import { AdminLayout, getAdminRoutes } from '@apps/admin';
+import { ClientLayout, getClientRoutes, useClientStore } from '@apps/client';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -36,6 +37,19 @@ const router = createRouter({
       path: '/admin',
       component: AdminLayout,
       children: getAdminRoutes(),
+    },
+    {
+      path: '/client',
+      component: ClientLayout,
+      children: getClientRoutes(),
+      beforeEnter: async () => {
+        // Initialize demo client when entering client routes
+        const clientModule = await import('@apps/client');
+        const clientStore = clientModule.useClientStore();
+        if (!clientStore.currentClient) {
+          clientStore.initializeDemoClient();
+        }
+      },
     },
   ],
 });
