@@ -12,7 +12,8 @@
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
-      "@apps/admin": ["../../libs/admin/src/index.ts"]
+      "@apps/admin": ["../../libs/admin/src/index.ts"],
+      "@apps/client": ["../../libs/client/src/index.ts"]
     }
   },
   "exclude": [
@@ -40,6 +41,9 @@
   "references": [
     {
       "path": "../../libs/admin/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/client/tsconfig.lib.json"
     }
   ]
 }

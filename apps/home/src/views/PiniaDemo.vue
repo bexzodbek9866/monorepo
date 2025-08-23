@@ -7,20 +7,40 @@
       <q-card class="q-mb-md">
         <q-card-section>
           <h6>Counter Store</h6>
-          <div class="text-h4 q-mb-md">{{ count }}</div>
+          <div class="text-h4 q-mb-md">
+            {{ count }}
+          </div>
           <div class="q-mb-md">
-            <q-chip color="primary" text-color="white">
+            <q-chip 
+              color="primary" 
+              text-color="white"
+            >
               Ikki barobar: {{ doubleCount }}
             </q-chip>
-            <q-chip :color="isEven ? 'positive' : 'negative'" text-color="white">
+            <q-chip 
+              :color="isEven ? 'positive' : 'negative'" 
+              text-color="white"
+            >
               {{ isEven ? 'Juft son' : 'Toq son' }}
             </q-chip>
           </div>
           
           <div class="q-gutter-sm q-mb-md">
-            <q-btn color="positive" @click="increment" label="+" />
-            <q-btn color="negative" @click="decrement" label="-" />
-            <q-btn color="grey" @click="reset" label="Reset" />
+            <q-btn 
+              color="positive" 
+              label="+" 
+              @click="increment"
+            />
+            <q-btn 
+              color="negative" 
+              label="-" 
+              @click="decrement"
+            />
+            <q-btn 
+              color="grey" 
+              label="Reset" 
+              @click="reset"
+            />
           </div>
           
           <div>
@@ -31,11 +51,13 @@
             />
             <q-btn 
               color="primary" 
-              @click="updateMessage" 
-              label="Xabarni yangilash"
               class="q-mt-sm"
+              label="Xabarni yangilash"
+              @click="updateMessage" 
             />
-            <div class="q-mt-sm text-body1">{{ message }}</div>
+            <div class="q-mt-sm text-body1">
+              {{ message }}
+            </div>
           </div>
         </q-card-section>
       </q-card>
@@ -48,33 +70,49 @@
           <div class="q-mb-md">
             <q-btn 
               color="primary" 
-              @click="fetchUsers" 
               :loading="loading"
               label="Foydalanuvchilarni yuklash"
+              @click="fetchUsers" 
             />
-            <q-chip color="info" text-color="white" class="q-ml-sm">
+            <q-chip 
+              color="info" 
+              text-color="white" 
+              class="q-ml-sm"
+            >
               Jami: {{ userCount }} ta
             </q-chip>
             
-            <div v-if="isLoggedIn" class="q-mt-sm">
-              <q-chip color="positive" text-color="white">
+            <div 
+              v-if="isLoggedIn" 
+              class="q-mt-sm"
+            >
+              <q-chip 
+                color="positive" 
+                text-color="white"
+              >
                 Tizimga kirgan: {{ currentUser?.name }}
               </q-chip>
               <q-btn 
                 color="negative" 
                 size="sm" 
-                @click="logout" 
-                label="Chiqish"
                 class="q-ml-sm"
+                label="Chiqish"
+                @click="logout" 
               />
             </div>
           </div>
 
-          <div v-if="error" class="text-negative q-mb-md">
+          <div 
+            v-if="error" 
+            class="text-negative q-mb-md"
+          >
             {{ error }}
           </div>
 
-          <q-list bordered separator>
+          <q-list 
+            bordered 
+            separator
+          >
             <q-item 
               v-for="user in users" 
               :key="user.id"
@@ -82,8 +120,12 @@
               @click="setCurrentUser(user)"
             >
               <q-item-section>
-                <q-item-label>{{ user.name }}</q-item-label>
-                <q-item-label caption>{{ user.email }}</q-item-label>
+                <q-item-label>
+                  {{ user.name }}
+                </q-item-label>
+                <q-item-label caption>
+                  {{ user.email }}
+                </q-item-label>
               </q-item-section>
               <q-item-section side>
                 <q-btn 
@@ -110,9 +152,9 @@
             />
             <q-btn 
               color="primary" 
-              @click="addNewUser" 
               label="Yangi foydalanuvchi qo'shish"
               :disable="!newUserName || !newUserEmail"
+              @click="addNewUser" 
             />
           </div>
         </q-card-section>

@@ -7,6 +7,9 @@
       "path": "../../libs/admin"
     },
     {
+      "path": "../../libs/client"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {

@@ -35,12 +35,28 @@ function showAlert() {
       <!-- Pinia Counter Test -->
       <div class="q-mb-lg">
         <h5>Pinia Counter Test</h5>
-        <div class="text-h4 q-mb-md">{{ count }}</div>
-        <div class="text-body1 q-mb-md">Ikki barobar: {{ doubleCount }}</div>
+        <div class="text-h4 q-mb-md">
+          {{ count }}
+        </div>
+        <div class="text-body1 q-mb-md">
+          Ikki barobar: {{ doubleCount }}
+        </div>
         <div class="q-gutter-sm">
-          <q-btn color="positive" @click="increment" label="+" />
-          <q-btn color="negative" @click="decrement" label="-" />
-          <q-btn color="grey" @click="reset" label="Reset" />
+          <q-btn 
+            color="positive" 
+            label="+" 
+            @click="increment" 
+          />
+          <q-btn 
+            color="negative" 
+            label="-" 
+            @click="decrement" 
+          />
+          <q-btn 
+            color="grey" 
+            label="Reset" 
+            @click="reset" 
+          />
         </div>
       </div>
       
@@ -50,6 +66,22 @@ function showAlert() {
         size="lg" 
         @click="showAlert"
       />
+
+      <!-- Navigation Links -->
+      <div class="q-mt-lg q-gutter-md">
+        <router-link 
+          to="/admin" 
+          class="q-btn q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable text-primary"
+        >
+          Admin Portal
+        </router-link>
+        <router-link 
+          to="/client" 
+          class="q-btn q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable text-secondary"
+        >
+          Client Portal
+        </router-link>
+      </div>
       
       <div class="q-mt-xl">
         <NxWelcome title="@apps/home" />

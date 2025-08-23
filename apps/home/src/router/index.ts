@@ -37,6 +37,40 @@ const router = createRouter({
       component: AdminLayout,
       children: getAdminRoutes(),
     },
+    {
+      path: '/client',
+      component: () => import('@apps/client').then(m => m.ClientLayout),
+      children: [
+        {
+          path: '',
+          name: 'client-home',
+          component: () => import('@apps/client').then(m => m.ClientHome)
+        },
+        {
+          path: 'profile',
+          name: 'client-profile',
+          component: () => import('@apps/client').then(m => m.ClientProfile)
+        },
+        {
+          path: 'orders',
+          name: 'client-orders',
+          component: () => import('@apps/client').then(m => m.ClientOrders)
+        },
+        {
+          path: 'support',
+          name: 'client-support',
+          component: () => import('@apps/client').then(m => m.ClientSupport)
+        }
+      ],
+      beforeEnter: async () => {
+        // Initialize demo client when entering client routes
+        const clientModule = await import('@apps/client');
+        const clientStore = clientModule.useClientStore();
+        if (!clientStore.currentClient) {
+          clientStore.initializeDemoClient();
+        }
+      },
+    },
   ],
 });
 
