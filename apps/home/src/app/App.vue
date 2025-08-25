@@ -32,6 +32,10 @@ import { RouterView } from 'vue-router';
             label="Test" 
           />
           <q-route-tab 
+            to="/shared-test" 
+            label="Shared Test" 
+          />
+          <q-route-tab 
             to="/admin" 
             label="Admin" 
           />
