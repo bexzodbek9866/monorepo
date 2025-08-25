@@ -23,29 +23,40 @@ function Get-Submodules {
     
     $submodules = @()
     $content = Get-Content ".gitmodules"
-    $currentModule = @{}
+    $currentName = ""
+    $currentPath = ""
+    $currentUrl = ""
     
     foreach ($line in $content) {
         if ($line -match '^\[submodule "(.+)"\]') {
-            if ($currentModule.Count -gt 0) {
-                $submodules += $currentModule
+            # Oldingi modulni saqlash
+            if ($currentPath -ne "") {
+                $submodules += [PSCustomObject]@{
+                    Name = $currentName
+                    Path = $currentPath
+                    Url = $currentUrl
+                }
             }
-            $currentModule = @{
-                Name = $matches[1]
-                Path = ""
-                Url = ""
-            }
+            # Yangi modul boshlash
+            $currentName = $matches[1]
+            $currentPath = ""
+            $currentUrl = ""
         }
         elseif ($line -match '^\s*path\s*=\s*(.+)') {
-            $currentModule.Path = $matches[1].Trim()
+            $currentPath = $matches[1].Trim()
         }
         elseif ($line -match '^\s*url\s*=\s*(.+)') {
-            $currentModule.Url = $matches[1].Trim()
+            $currentUrl = $matches[1].Trim()
         }
     }
     
-    if ($currentModule.Count -gt 0) {
-        $submodules += $currentModule
+    # Oxirgi modulni qo'shish
+    if ($currentPath -ne "") {
+        $submodules += [PSCustomObject]@{
+            Name = $currentName
+            Path = $currentPath
+            Url = $currentUrl
+        }
     }
     
     return $submodules
@@ -58,8 +69,10 @@ function Get-InitializedSubmodules {
     
     if ($status) {
         foreach ($line in $status) {
+            # Faqat "-" belgisi yo'q bo'lgan (initialized) submodule'larni olish
+            # "-" belgisi bilan boshlanganlar deinitialize qilingan
             if ($line -match '^\s*[0-9a-f]+\s+(.+?)(\s|$)') {
-                $initialized += $matches[1]
+                $initialized += $matches[1].Trim()
             }
         }
     }
@@ -67,35 +80,84 @@ function Get-InitializedSubmodules {
     return $initialized
 }
 
-function Show-SubmodulesList {
-    param($submodules, $initialized)
+function Get-HiddenSubmodules {
+    # Git submodule status orqali to'g'ridan-to'g'ri hide qilinganlarni olish
+    $status = git submodule status 2>$null
+    $hiddenSubmodules = @()
     
-    Write-ColorText "`nMavjud Git Submodules:" "Cyan"
+    if ($status) {
+        foreach ($line in $status) {
+            # "-" bilan boshlanganlar hide qilingan
+            if ($line -match '^-[0-9a-f]+\s+(.+?)(\s|$)') {
+                $path = $matches[1].Trim()
+                $name = $path -replace "libs/", ""
+                
+                $moduleObj = [PSCustomObject]@{
+                    Name = $name
+                    Path = $path
+                    Url = ""
+                }
+                
+                $hiddenSubmodules += $moduleObj
+            }
+        }
+    }
+    
+    # PowerShell array return muammosini hal qilish uchun
+    return ,$hiddenSubmodules
+}
+
+function Show-HiddenSubmodulesList {
+    param($hiddenSubmodules)
+    
+    Write-ColorText "`nHide qilingan Git Submodules:" "Cyan"
     Write-ColorText "========================================" "Cyan"
     
-    for ($i = 0; $i -lt $submodules.Count; $i++) {
-        $module = $submodules[$i]
+    if ($hiddenSubmodules.Count -eq 0) {
+        Write-ColorText "X Hech qanday hide qilingan submodule topilmadi!" "Red"
+        Write-ColorText "INFO Barcha submodule'lar hozir yuklab olingan!" "Green"
+        return $false
+    }
+    
+    for ($i = 0; $i -lt $hiddenSubmodules.Count; $i++) {
+        $module = $hiddenSubmodules[$i]
         $number = $i + 1
         $name = $module.Name -replace "libs/", ""
-        $status = if ($initialized -contains $module.Path) { "OK Yuklab olingan" } else { "X Yuklab olinmagan" }
         
         Write-ColorText "$number. $name" "Yellow"
         Write-ColorText "   Path: $($module.Path)" "Gray"
-        Write-ColorText "   Status: $status" $(if ($initialized -contains $module.Path) { "Green" } else { "Red" })
+        Write-ColorText "   Status: Hide qilingan" "Red"
         Write-Host ""
+    }
+    
+    return $true
+}
+
+function Remove-FromNxIgnore {
+    param($path)
+    
+    $nxignoreFile = ".nxignore"
+    $nxIgnorePath = "$path/**"
+    
+    if (Test-Path $nxignoreFile) {
+        $content = Get-Content $nxignoreFile | Where-Object { 
+            $_ -ne $path -and $_ -ne $nxIgnorePath -and $_.Trim() -ne "" 
+        }
+        $content | Set-Content $nxignoreFile -Encoding UTF8
+        Write-ColorText "INFO $nxIgnorePath .nxignore faylidan olib tashlandi" "Cyan"
     }
 }
 
 function Initialize-Submodules {
-    param($submodules, $selection)
+    param($hiddenSubmodules, $selection)
     
     $numbers = $selection -split "," | ForEach-Object { $_.Trim() }
     $toInitialize = @()
     
     foreach ($num in $numbers) {
-        if ($num -match '^\d+$' -and [int]$num -ge 1 -and [int]$num -le $submodules.Count) {
+        if ($num -match '^\d+$' -and [int]$num -ge 1 -and [int]$num -le $hiddenSubmodules.Count) {
             $index = [int]$num - 1
-            $toInitialize += $submodules[$index]
+            $toInitialize += $hiddenSubmodules[$index]
         }
         else {
             Write-ColorText "X Noto'g'ri raqam: $num" "Red"
@@ -118,6 +180,9 @@ function Initialize-Submodules {
             git submodule update --init --recursive $module.Path
             if ($LASTEXITCODE -eq 0) {
                 Write-ColorText "OK $name muvaffaqiyatli yuklab olindi!" "Green"
+                
+                # .nxignore dan olib tashlash
+                Remove-FromNxIgnore $module.Path
             }
             else {
                 Write-ColorText "X $name yuklab olishda xatolik!" "Red"
@@ -135,14 +200,12 @@ function Initialize-Submodules {
 try {
     Write-ColorText "Git Submodules Manager - Show Mode" "Magenta"
     
-    $submodules = Get-Submodules
-    if ($submodules.Count -eq 0) {
-        Write-ColorText "X Hech qanday submodule topilmadi!" "Red"
-        exit 1
-    }
+    $hiddenSubmodules = Get-HiddenSubmodules
+    $hasHiddenModules = Show-HiddenSubmodulesList $hiddenSubmodules
     
-    $initialized = Get-InitializedSubmodules
-    Show-SubmodulesList $submodules $initialized
+    if (-not $hasHiddenModules) {
+        exit 0
+    }
     
     if (-not $Selection) {
         Write-ColorText "Qaysi submodule'larni yuklab olmoqchisiz?" "Cyan"
@@ -155,7 +218,7 @@ try {
         exit 1
     }
     
-    $success = Initialize-Submodules $submodules $Selection
+    $success = Initialize-Submodules $hiddenSubmodules $Selection
     if ($success) {
         Write-ColorText "`nOperatsiya muvaffaqiyatli yakunlandi!" "Green"
     }
