@@ -7,10 +7,10 @@
       "path": "../../libs/shared"
     },
     {
-      "path": "../../libs/client"
+      "path": "../../libs/admin"
     },
     {
-      "path": "../../libs/admin"
+      "path": "../../libs/client"
     },
     {
       "path": "./tsconfig.app.json"
