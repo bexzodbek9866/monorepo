@@ -185,10 +185,6 @@ export default defineConfig({
 ### 8. Vue Router sozlash
 Router konfiguratsiyasi `router/index.ts` faylida:
 - Home view
-- About view  
-- Pinia Demo
-- Quasar Demo
-- Reactivity Test
 
 ### 9. Komponentlar yaratish
 - `App.vue` - Asosiy app komponenti
@@ -205,6 +201,75 @@ npm run build        # Production build yaratish
 npm run test         # Unit testlarni ishga tushirish
 npm run lint         # Code linting
 ```
+
+### Libs Management (Git Submodules)
+```bash
+npm run libs:show    # Hide qilingan submodule'larni ko'rsatish va yuklab olish
+npm run libs:hide    # Yuklab olingan submodule'larni yashirish (deinitialize)
+```
+
+#### Libs:show buyrug'i
+Bu buyruq hide qilingan (deinitialize qilingan) git submodule'larni ko'rsatadi va tanlagan birlarini yuklab oladi:
+
+```bash
+npm run libs:show
+```
+
+**Funksiyalari:**
+- Hide qilingan submodule'lar ro'yxatini ko'rsatadi
+- Interaktiv tarzda yuklab olish uchun submodule tanlash imkonini beradi
+- Tanlangan submodule'larni avtomatik initialize qiladi
+- `.nxignore` faylidan avtomatik olib tashlaydi (Nx tomonidan ignore qilinmasligi uchun)
+
+**Misol ishlatish:**
+```
+Hide qilingan Git Submodules:
+========================================
+1. admin
+   Path: libs/admin
+   Status: Hide qilingan
+
+Qaysi submodule'larni yuklab olmoqchisiz?
+Misol: 1 yoki 2 yoki 1,2
+Raqamlarni kiriting: 1
+```
+
+#### Libs:hide buyrug'i
+Bu buyruq hozir yuklab olingan git submodule'larni yashiradi (deinitialize qiladi):
+
+```bash
+npm run libs:hide
+```
+
+**Funksiyalari:**
+- Yuklab olingan submodule'lar ro'yxatini ko'rsatadi
+- Interaktiv tarzda yashirish uchun submodule tanlash imkonini beradi
+- Tanlangan submodule'larni deinitialize qiladi
+- `.nxignore` fayliga avtomatik qo'shadi (Nx tomonidan ignore qilinishi uchun)
+- Working directory'ni tozalaydi, lekin git history'ga ta'sir qilmaydi
+
+**Misol ishlatish:**
+```
+Hozir yuklab olingan Git Submodules:
+==================================================
+1. admin
+   Path: libs/admin
+   Status: OK Yuklab olingan
+
+2. client
+   Path: libs/client
+   Status: OK Yuklab olingan
+
+Qaysi submodule'larni yashirmoqchisiz?
+Misol: 1 yoki 2 yoki 1,2
+Raqamlarni kiriting: 1
+```
+
+**Nima uchun kerak?**
+- **Memory va Disk Space**: Foydalanmayotgan kutubxonalarni yashirish orqali diskda joy tejash
+- **Development Speed**: Kamroq kod - tez build va linting
+- **Modularity**: Faqat kerakli kutubxonalar bilan ishlash imkoniyati
+- **Team Work**: Har bir developer o'ziga kerakli kutubxonalar bilan ishlashi mumkin
 
 ### Nx buyruqlari
 ```bash
@@ -279,10 +344,42 @@ cd ../..
 4. **State Management** - Pinia bilan reactive state
 5. **Type Safety** - TypeScript bilan to'liq tipizatsiya
 6. **Testing Suite** - Unit va E2E testlar
-7. **Code Quality** - ESLint va Prettier integratsiyasi
+7. **Code Quality** - ESLint va Prettier integratsiya
 8. **Hot Reload** - Vite bilan tez development
 9. **Git Submodules** - Admin kutubxonasini mustaqil boshqarish
 10. **CI/CD Integration** - GitHub Actions bilan avtomatik test va build
+11. **Dynamic Loading** - Kutubxonalar hide qilinganda error bermaydi
+12. **Conditional Navigation** - Tab'lar faqat mavjud kutubxonalarga ko'rsatiladi
+
+### Dynamic Navigation System
+
+Loyihada **conditional navigation** tizimi mavjud:
+
+- **Home tab** - har doim ko'rinadi
+- **Admin tab** - faqat `libs/admin` mavjud bo'lganda ko'rinadi
+- **Client tab** - faqat `libs/client` mavjud bo'lganda ko'rinadi
+
+Bu system quyidagicha ishlaydi:
+
+1. **Kutubxona mavjud** → Tab ko'rinadi, route ishlaydi
+2. **Kutubxona hide qilingan** → Tab ko'rinmaydi, route fallback'ga yo'naltiriladi
+3. **Kutubxona show qilingan** → Tab avtomatik paydo bo'ladi
+
+**Misol:**
+```bash
+# Admin lib ni hide qiling
+npm run libs:hide
+# Admin tab yo'qoladi, faqat Home va Client ko'rinadi
+
+# Admin lib ni show qiling  
+npm run libs:show
+# Admin tab qaytadan paydo bo'ladi
+```
+
+Bu feature'ning afzalliklari:
+- **Clean UI** - Foydalanuvchi faqat mavjud bo'limlarni ko'radi
+- **Error Prevention** - Mavjud bo'lmagan kutubxonalarga kirish xatolarini oldini oladi
+- **Development Flexibility** - Developer faqat kerakli qismlar bilan ishlashi mumkin
 
 ## ⚠️ Muhim eslatmalar
 

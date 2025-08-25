@@ -9,31 +9,6 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
-    },
-    {
-      path: '/demo',
-      name: 'demo',
-      component: () => import('../views/QuasarDemo.vue'),
-    },
-    {
-      path: '/pinia',
-      name: 'pinia',
-      component: () => import('../views/PiniaDemo.vue'),
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/ReactivityTest.vue'),
-    },
-    {
-      path: '/shared-test',
-      name: 'shared-test',
-      component: () => import('../views/SharedTest.vue'),
-    },
     // Admin routes
     {
       path: '/admin',
