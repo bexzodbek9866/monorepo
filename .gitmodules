@@ -1,3 +1,7 @@
 [submodule "libs/admin"]
 	path = libs/admin
 	url = https://github.com/bexzodbek9866/admin-lib.git
+
+[submodule "libs/client"]
+	path = libs/client
+	url = https://github.com/bexzodbek9866/client-lib.git
