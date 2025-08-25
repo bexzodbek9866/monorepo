@@ -33,6 +33,11 @@ const router = createRouter({
       component: () => import('../views/ReactivityTest.vue'),
     },
     {
+      path: '/shared-test',
+      name: 'shared-test',
+      component: () => import('../views/SharedTest.vue'),
+    },
+    {
       path: '/admin',
       component: AdminLayout,
       children: getAdminRoutes(),

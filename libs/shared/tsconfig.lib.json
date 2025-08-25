@@ -9,25 +9,20 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
-    "baseUrl": ".",
-    "paths": {
-      "@apps/shared": ["../../libs/shared/src/index.ts"],
-      "@apps/admin": ["../../libs/admin/src/index.ts"],
-      "@apps/client": ["../../libs/client/src/index.ts"]
-    }
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
   },
   "exclude": [
     "out-tsc",
     "dist",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
+    "src/**/__tests__/*",
     "src/**/*.spec.vue",
     "src/**/*.test.vue",
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",
     "vitest.config.mts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
     "src/**/*.test.tsx",
     "src/**/*.spec.tsx",
     "src/**/*.test.js",
@@ -38,16 +33,11 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
-  "references": [
-    {
-      "path": "../../libs/shared/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/client/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/admin/tsconfig.lib.json"
-    }
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
   ]
 }

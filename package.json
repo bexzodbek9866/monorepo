@@ -16,11 +16,11 @@
     "@nx/devkit": "21.3.8",
     "@nx/eslint": "21.3.8",
     "@nx/eslint-plugin": "21.3.8",
-    "@nx/js": "21.3.8",
+    "@nx/js": "21.4.0",
     "@nx/playwright": "21.3.8",
-    "@nx/vite": "21.3.8",
-    "@nx/vue": "^21.3.8",
-    "@nx/web": "21.3.8",
+    "@nx/vite": "21.4.0",
+    "@nx/vue": "21.4.0",
+    "@nx/web": "21.4.0",
     "@playwright/test": "^1.36.0",
     "@quasar/vite-plugin": "^1.10.0",
     "@swc-node/register": "~1.9.1",
@@ -55,7 +55,8 @@
   "workspaces": [
     "apps/*",
     "libs/admin",
-    "libs/client"
+    "libs/client",
+    "libs/shared"
   ],
   "dependencies": {
     "@quasar/extras": "^1.17.0",
@@ -63,5 +64,18 @@
     "quasar": "^2.18.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
+  },
+  "nx": {
+    "includedScripts": [],
+    "targets": {
+      "local-registry": {
+        "executor": "@nx/js:verdaccio",
+        "options": {
+          "port": 4873,
+          "config": ".verdaccio/config.yml",
+          "storage": "tmp/local-registry/storage"
+        }
+      }
+    }
   }
 }

@@ -16,6 +16,12 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"]
+    "customConditions": ["development"],
+    "baseUrl": ".",
+    "paths": {
+      "@apps/admin": ["libs/admin/src/index.ts"],
+      "@apps/client": ["libs/client/src/index.ts"],
+      "@apps/shared": ["libs/shared/src/index.ts"]
+    }
   }
 }
