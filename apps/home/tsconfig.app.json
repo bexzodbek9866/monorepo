@@ -40,9 +40,6 @@
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
   "references": [
     {
-      "path": "../../libs/admin/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/client/tsconfig.lib.json"
     }
   ]
