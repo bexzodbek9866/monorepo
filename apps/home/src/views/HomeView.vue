@@ -3,6 +3,7 @@ import NxWelcome from '../app/NxWelcome.vue';
 import { useQuasar } from 'quasar'
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '../stores/counter'
+import { BaseCard, BaseButton } from '@apps/shared'
 
 const $q = useQuasar()
 const counterStore = useCounterStore()
@@ -33,8 +34,11 @@ function showAlert() {
       </p>
       
       <!-- Pinia Counter Test -->
-      <div class="q-mb-lg">
-        <h5>Pinia Counter Test</h5>
+      <BaseCard
+        title="Pinia Counter Test"
+        subtitle="State management demo"
+        class="counter-card q-mb-lg"
+      >
         <div class="text-h4 q-mb-md">
           {{ count }}
         </div>
@@ -42,23 +46,23 @@ function showAlert() {
           Ikki barobar: {{ doubleCount }}
         </div>
         <div class="q-gutter-sm">
-          <q-btn 
+          <BaseButton 
             color="positive" 
             label="+" 
             @click="increment" 
           />
-          <q-btn 
+          <BaseButton 
             color="negative" 
             label="-" 
             @click="decrement" 
           />
-          <q-btn 
-            color="grey" 
+          <BaseButton 
+            color="secondary" 
             label="Reset" 
             @click="reset" 
           />
         </div>
-      </div>
+      </BaseCard>
       
       <q-btn 
         color="primary" 
@@ -68,20 +72,24 @@ function showAlert() {
       />
 
       <!-- Navigation Links -->
-      <div class="q-mt-lg q-gutter-md">
-        <router-link 
-          to="/admin" 
-          class="q-btn q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable text-primary"
-        >
-          Admin Portal
-        </router-link>
-        <router-link 
-          to="/client" 
-          class="q-btn q-btn--standard q-btn--rectangle q-btn--actionable q-focusable q-hoverable text-secondary"
-        >
-          Client Portal
-        </router-link>
-      </div>
+      <BaseCard
+        title="Portallarga O'tish"
+        subtitle="Admin yoki Client portaliga o'ting"
+        class="navigation-card q-mt-lg"
+      >
+        <div class="q-gutter-md">
+          <BaseButton 
+            color="primary"
+            label="Admin Portal"
+            @click="$router.push('/admin')"
+          />
+          <BaseButton 
+            color="secondary"
+            label="Client Portal"
+            @click="$router.push('/client')"
+          />
+        </div>
+      </BaseCard>
       
       <div class="q-mt-xl">
         <NxWelcome title="@apps/home" />
@@ -89,3 +97,15 @@ function showAlert() {
     </div>
   </q-page>
 </template>
+
+<style scoped>
+.counter-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.navigation-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+</style>
