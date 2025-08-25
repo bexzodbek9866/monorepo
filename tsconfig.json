@@ -10,13 +10,13 @@
       "path": "./apps/home"
     },
     {
-      "path": "./libs/admin"
-    },
-    {
       "path": "./libs/client"
     },
     {
       "path": "./libs/shared"
+    },
+    {
+      "path": "./libs/admin"
     }
   ]
 }
