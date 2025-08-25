@@ -22,11 +22,33 @@ function Get-InitializedSubmodules {
     if ($status) {
         foreach ($line in $status) {
             # Format: " commit_hash path (branch)" yoki "-commit_hash path"
-            if ($line -match '^\s*[0-9a-f]+\s+(.+?)(\s+\(.*\))?$') {
+            if ($line -match '^\s*[-]?[0-9a-f]+\s+(.+?)(\s+\(.*\))?$') {
                 $path = $matches[1].Trim()
-                $initialized += @{
-                    Path = $path
-                    Name = ($path -replace "libs/", "")
+                $name = ($path -replace "libs/", "")
+                if (-not [string]::IsNullOrWhiteSpace($path)) {
+                    $initialized += @{
+                        Path = $path
+                        Name = $name
+                    }
+                }
+            }
+        }
+    }
+    
+    # Agar git submodule status ishlamasa, .gitmodules dan o'qish
+    if ($initialized.Count -eq 0 -and (Test-Path ".gitmodules")) {
+        $content = Get-Content ".gitmodules"
+        $currentPath = ""
+        
+        foreach ($line in $content) {
+            if ($line -match '^\s*path\s*=\s*(.+)') {
+                $currentPath = $matches[1].Trim()
+                if (Test-Path $currentPath) {
+                    $name = ($currentPath -replace "libs/", "")
+                    $initialized += @{
+                        Path = $currentPath
+                        Name = $name
+                    }
                 }
             }
         }
@@ -57,6 +79,26 @@ function Show-InitializedSubmodules {
     }
     
     return $true
+}
+
+function Add-ToNxIgnore {
+    param($path)
+    
+    $nxignoreFile = ".nxignore"
+    $content = @()
+    $nxIgnorePath = "$path"
+    
+    # Mavjud .nxignore faylini o'qish
+    if (Test-Path $nxignoreFile) {
+        $content = Get-Content $nxignoreFile
+    }
+    
+    # Agar path allaqachon mavjud bo'lmasa, qo'shish
+    if ($content -notcontains $nxIgnorePath -and $content -notcontains $path) {
+        $content += $nxIgnorePath
+        $content | Set-Content $nxignoreFile -Encoding UTF8
+        Write-ColorText "INFO $nxIgnorePath .nxignore fayliga qo'shildi" "Cyan"
+    }
 }
 
 function Hide-Submodules {
@@ -92,6 +134,9 @@ function Hide-Submodules {
             git submodule deinit -f $module.Path
             if ($LASTEXITCODE -eq 0) {
                 Write-ColorText "OK $($module.Name) muvaffaqiyatli yashirildi!" "Green"
+                
+                # .nxignore ga qo'shish
+                Add-ToNxIgnore $module.Path
             }
             else {
                 Write-ColorText "X $($module.Name) yashirishda xatolik!" "Red"

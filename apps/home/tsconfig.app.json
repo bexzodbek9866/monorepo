@@ -43,10 +43,10 @@
       "path": "../../libs/shared/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/admin/tsconfig.lib.json"
+      "path": "../../libs/client/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/client/tsconfig.lib.json"
+      "path": "../../libs/admin/tsconfig.lib.json"
     }
   ]
 }
