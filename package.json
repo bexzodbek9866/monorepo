@@ -59,6 +59,7 @@
     "libs/shared"
   ],
   "dependencies": {
+    "@apps/shared": "workspace:*",
     "@quasar/extras": "^1.17.0",
     "pinia": "^3.0.3",
     "quasar": "^2.18.2",
