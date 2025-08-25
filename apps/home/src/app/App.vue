@@ -42,11 +42,6 @@ onMounted(() => {
 
         <q-tabs align="right">
           <q-route-tab to="/" label="Home" />
-          <q-route-tab to="/about" label="About" />
-          <q-route-tab to="/demo" label="Demo" />
-          <q-route-tab to="/pinia" label="Pinia Demo" />
-          <q-route-tab to="/test" label="Test" />
-          <q-route-tab to="/shared-test" label="Shared Test" />
           <q-route-tab 
             v-if="hasAdminRoute"
             to="/admin" 
