@@ -23,9 +23,9 @@ export default defineConfig(() => ({
   ],
   resolve: {
     alias: {
-      '@apps/admin': path.resolve(__dirname, '../../libs/admin/src/index.ts'),
-      '@apps/client': path.resolve(__dirname, '../../libs/client/src/index.ts'),
-      '@apps/shared': path.resolve(__dirname, '../../libs/shared/src/index.ts'),
+      '@apps/admin': path.resolve(__dirname, '../../libs/admin/src'),
+      '@apps/client': path.resolve(__dirname, '../../libs/client/src'),
+      '@apps/shared': path.resolve(__dirname, '../../libs/shared/src'),
     },
   },
   // Uncomment this if you are using workers.

@@ -8,7 +8,9 @@
     "test": "nx test home",
     "lint": "nx lint home",
     "ci": "npm ci --legacy-peer-deps --no-audit --no-fund",
-    "postinstall": "nx reset"
+    "postinstall": "nx reset",
+    "libs:show": "powershell -ExecutionPolicy Bypass -File scripts/libs-show.ps1",
+    "libs:hide": "powershell -ExecutionPolicy Bypass -File scripts/libs-hide.ps1"
   },
   "private": true,
   "devDependencies": {
