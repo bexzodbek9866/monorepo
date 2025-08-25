@@ -12,8 +12,8 @@
     :fab="fab"
     :icon="icon"
     :label="label"
-    @click="$emit('click', $event)"
     v-bind="$attrs"
+    @click="$emit('click', $event)"
   >
     <slot />
   </q-btn>

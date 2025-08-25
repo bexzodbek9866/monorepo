@@ -1,5 +1,5 @@
 import vue from 'eslint-plugin-vue';
-import baseConfig from '../eslint.config.mjs';
+import baseConfig from '../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
@@ -16,6 +16,7 @@ export default [
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.vue'],
     rules: {
       'vue/multi-word-component-names': 'off',
+      'vue/require-default-prop': 'off',
     },
   },
 ];

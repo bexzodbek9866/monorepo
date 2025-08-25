@@ -13,7 +13,7 @@ export const groupBy = <T>(array: T[], keyFn: (item: T) => string | number): Rec
   }, {} as Record<string | number, T[]>)
 }
 
-export const sortBy = <T>(array: T[], keyFn: (item: T) => any, direction: 'asc' | 'desc' = 'asc'): T[] => {
+export const sortBy = <T>(array: T[], keyFn: (item: T) => string | number, direction: 'asc' | 'desc' = 'asc'): T[] => {
   return [...array].sort((a, b) => {
     const aVal = keyFn(a)
     const bVal = keyFn(b)
@@ -24,7 +24,7 @@ export const sortBy = <T>(array: T[], keyFn: (item: T) => any, direction: 'asc' 
   })
 }
 
-export const unique = <T>(array: T[], keyFn?: (item: T) => any): T[] => {
+export const unique = <T>(array: T[], keyFn?: (item: T) => string | number): T[] => {
   if (!keyFn) {
     return [...new Set(array)]
   }

@@ -6,10 +6,20 @@
     :bordered="bordered"
     :square="square"
   >
-    <q-card-section v-if="$slots.header || title" class="card-header">
+    <q-card-section
+      v-if="$slots.header || title"
+      class="card-header"
+    >
       <slot name="header">
-        <div class="text-h6">{{ title }}</div>
-        <div v-if="subtitle" class="text-subtitle2">{{ subtitle }}</div>
+        <div class="text-h6">
+          {{ title }}
+        </div>
+        <div
+          v-if="subtitle"
+          class="text-subtitle2"
+        >
+          {{ subtitle }}
+        </div>
       </slot>
     </q-card-section>
 
@@ -17,7 +27,10 @@
       <slot />
     </q-card-section>
 
-    <q-card-actions v-if="$slots.actions" :align="actionsAlign">
+    <q-card-actions
+      v-if="$slots.actions"
+      :align="actionsAlign"
+    >
       <slot name="actions" />
     </q-card-actions>
   </q-card>

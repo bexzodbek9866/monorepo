@@ -11,9 +11,14 @@
     @show="$emit('show')"
   >
     <q-card :style="{ minWidth: minWidth, maxWidth: maxWidth }">
-      <q-card-section v-if="title || $slots.title" class="row items-center q-pb-none">
+      <q-card-section
+        v-if="title || $slots.title"
+        class="row items-center q-pb-none"
+      >
         <div class="text-h6">
-          <slot name="title">{{ title }}</slot>
+          <slot name="title">
+            {{ title }}
+          </slot>
         </div>
         <q-space />
         <q-btn
@@ -30,7 +35,10 @@
         <slot />
       </q-card-section>
 
-      <q-card-actions v-if="$slots.actions" :align="actionsAlign">
+      <q-card-actions
+        v-if="$slots.actions"
+        :align="actionsAlign"
+      >
         <slot name="actions" />
       </q-card-actions>
     </q-card>
